@@ -20,10 +20,11 @@
 <?php
 // error_reporting(E_ALL);
 //  ini_set('display_errors', 1);
+session_start();
 if(isset($_POST["signin"])){ 
   
 	if(!empty($_POST['username']) && !empty($_POST['pwd'])) {  
-	    $user=$_POST['username'];  
+	    $_SESSION["user"]=$_POST['username'];  
 	    $pass=$_POST['pwd']; 
 
 	  
@@ -33,7 +34,7 @@ if(isset($_POST["signin"])){
 		    die("Connection failed: " . $conn->connect_error);
 		} 
 	  
-	    $query="SELECT * FROM CustomerDetails WHERE Email='".$user."' AND Pwd='".$pass."'";  
+	    $query="SELECT * FROM CustomerDetails WHERE Email='".$_SESSION["user"]."' AND Pwd='".$pass."'";  
 		$result=$conn->query($query); 
 
 	    $rowcount = mysqli_num_rows($result);
@@ -61,7 +62,7 @@ if(isset($_POST["signin"])){
     
 ?>
 <?php 
-// error_reporting(E_ALL);
+//error_reporting(E_ALL);
 // ini_set('display_errors', 1);
 $action1=$_POST["signup"];
 if($action1 == 'Sign Up')
